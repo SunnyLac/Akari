@@ -1,22 +1,24 @@
 import React, { useState } from "react";
+import Cell from "./Cell";
 import '../App.css';
 
 interface BoardProps {
     level: string;
+    gridSize: number;
 };
 
-const Board: React.FC<BoardProps> = ({level}) => {
-    const gridSize=9;
-    const rowSize = gridSize**0.5; // Calculate the row and column size
-
+const Board: React.FC<BoardProps> = ({level, gridSize}) => {
+    // const gridSize=10;
+    const totalNumberOfCells = gridSize**2;
     const gridStyle = {
-        gridTemplateColumns: `repeat(${rowSize}, 1fr)`, // Set number of columns
-        gridTemplateRows: `repeat(${rowSize}, 1fr)`,    // Set number of rows
+        gridTemplateColumns: `repeat(${gridSize}, 1fr)`, // Set number of columns
+        gridTemplateRows: `repeat(${gridSize}, 1fr)`,    // Set number of rows
     };
 
     // Produces the number of buttons needed
-    const buttons = Array.from({ length: gridSize }, (_, index) => (
-        <button key={index}>Button {index + 1}</button>
+    const buttons = Array.from({ length: totalNumberOfCells }, (_, index) => (
+        // <button key={index}>Button {index + 1} {level}</button>
+        <Cell index={index} icon="" isClickable={true}></Cell>
     ));
 
 
