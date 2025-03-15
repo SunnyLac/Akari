@@ -17,8 +17,7 @@ const Board: React.FC<BoardProps> = ({level, gridSize}) => {
 
     // Produces the number of buttons needed
     const buttons = Array.from({ length: totalNumberOfCells }, (_, index) => (
-        // <button key={index}>Button {index + 1} {level}</button>
-        <Cell index={index} icon="" isClickable={true}></Cell>
+        <Cell key={`${level}-${index}`} index={index} icon="" isClickable={true}></Cell>
     ));
 
 

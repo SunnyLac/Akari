@@ -3,17 +3,20 @@ import React from "react";
 
 interface LevelProps {
   level: string;
-  onSelectLevel: (level: string, gridSize: number) => void;
+  onSelectLevel: (level: string, gridSize: number, boardString: string) => void;
 };
+
 
 
 const Level: React.FC<LevelProps> = ({level, onSelectLevel}) => {
   let example = "nevermind";
-  let gridSize = 1;
+  let boardString: string;
+  let gridSize: number;
   switch(level) {
     case "Level 1":
         example = "Level 1 has been clicked";
-        gridSize = 2;
+        boardString = "32 43\n62\n04\n20 34\n23 46";
+        gridSize = 7;
         break;
     case "Level 2":
         example = "Level 2 has been clicked";
@@ -29,14 +32,14 @@ const Level: React.FC<LevelProps> = ({level, onSelectLevel}) => {
         break;
     case "Level 5":
         example = "Level 5 has been clicked";
-        gridSize = 25;
+        gridSize = 10;
         break;
     default:
-        example = "Unknown level";
-        gridSize = 10;
+        example = "";
+        gridSize = 0;
 }
     return <>
-    <button onClick={() => onSelectLevel(example,gridSize)}>
+    <button onClick={() => onSelectLevel(example,gridSize, boardString)}>
       {level}
     </button>
     </>;

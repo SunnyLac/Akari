@@ -16,7 +16,7 @@ const Cell: React.FC<CellProps> = ({index, icon , isClickable}) => {
     disabled={!isClickable}
     className={hasbeenClicked ? "red" : "blue"}
     >
-        {index}
+        {}
     </button>
     </>;
 };

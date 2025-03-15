@@ -1,28 +1,32 @@
-#root{
+body{
+  overflow: hidden;
   background-color: rgb(88, 72, 72);
 }
 
+button{
+  border: 1px black solid;
+}
 
 #Level-Selection-Section{
-  width: 100vw;
-  height: 10vh;
+  width: 100dvw;
+  height: 10dvh;
   justify-content: center;
   /* align-items: center; */
   display: flex;
+  gap: 5dvw;
 }
 
 #Board-Section{
-  width: 100vw;
-  /* aspect-ratio: 1; */
-  height: 90vh;
+  width: 100dvw;
+  height: 90dvh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .Board{
-  width: 30vw;
-  height: 30vw;
+  width: 30dvw;
+  height: 30dvw;
   aspect-ratio: 1;
   display: grid;
 }
