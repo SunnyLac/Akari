@@ -5,6 +5,7 @@ body{
 
 button{
   border: 1px black solid;
+  justify-content: center;
 }
 
 #Level-Selection-Section{
@@ -35,6 +36,15 @@ button{
   background-color: red;
 }
 
-.blue{
-  background-color: blue;
+.grey{
+  background-color: grey;
+}
+
+.black{
+  background-color: black;
+  color: white;
+}
+
+.yellow{
+  background-color: yellow;
 }

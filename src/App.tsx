@@ -42,7 +42,7 @@ function App() {
                 ))}
             </div>
             <div id="Board-Section">
-                <Board level={selectedLevel} gridSize={gridSize}></Board>
+                <Board board={boardState} level={selectedLevel} gridSize={gridSize}></Board>
             </div>
             <div>
                 {selectedLevel}
