@@ -10,7 +10,6 @@ const blockType = ["black","zero","one","two","three","four"];
 function createBoard(stringInput: string, gridSize: number){
     let blockTypeList = stringInput.split("\n");
     const board = Array.from({ length: gridSize }, () => Array(gridSize).fill('_'));
-    console.log(blockTypeList[0]);
     for (let i = 0; i < blockTypeList.length; i++){
         let lines = blockTypeList[i].split(" ");
         for (let j = 0; j < lines.length; j++){
@@ -27,11 +26,16 @@ function App() {
     const [gridSize, setGridSize] = useState<number>(0);
     const levels = ["Level 1", "Level 2", "Level 3", "Level 4","Level 5"]; // Example levels
     const handleSelectedLevel = (level: string, gridSize: number, boardString: string) => {
-        // console.log(boardString);
         const board = createBoard(boardString,gridSize);
         updateBoardState(board);
         setSelectedLevel(level);
         setGridSize(gridSize);
+    }
+
+    const getNewBoardState = (newBoard: any[][]) => {
+        // console.table(newBoard);
+        updateBoardState(newBoard);
+        // console.table(boardState);
     }
 
     return (
@@ -42,10 +46,9 @@ function App() {
                 ))}
             </div>
             <div id="Board-Section">
-                <Board board={boardState} level={selectedLevel} gridSize={gridSize}></Board>
+                <Board board={boardState} level={selectedLevel} gridSize={gridSize} onNewBoardUpdate={getNewBoardState}></Board>
             </div>
             <div>
-                {selectedLevel}
             </div>
         </>
     );

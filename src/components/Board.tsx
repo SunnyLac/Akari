@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Cell from "./Cell";
 import '../App.css';
 
@@ -6,22 +6,29 @@ interface BoardProps {
     board: any[][];
     level: string;
     gridSize: number;
+    onNewBoardUpdate: (newBoard: any[][]) => void;
+    
 };
 
-const Board: React.FC<BoardProps> = ({board, level, gridSize}) => {
-    // const totalNumberOfCells = gridSize**2;
+const Board: React.FC<BoardProps> = ({board, level, gridSize, onNewBoardUpdate}) => {
     const gridStyle = {
         gridTemplateColumns: `repeat(${gridSize}, 1fr)`, // Set number of columns
         gridTemplateRows: `repeat(${gridSize}, 1fr)`,    // Set number of rows
     };
 
-    // Produces the number of buttons needed
-    // const buttons = Array.from({ length: totalNumberOfCells }, (_, index) => (
-    //     <Cell key={`${level}-${index}`} index={index} icon="" isClickable={true}></Cell>
-    // ));
+    const updateBoardState = (rowIdx: number, colIdx: number, new_icon: string) => {
+        console.log(`${rowIdx}-${colIdx}-${new_icon}`);
+        let newBoard = [...board];
+        newBoard[rowIdx][colIdx] = new_icon;
+        // console.table(board);
+        onNewBoardUpdate(newBoard);
+    }
+
+    
+
     const buttons = board.map((row, rowIdx) => 
         row.map((col, colIdx) => (
-            <Cell key={`${level}-${rowIdx}-${colIdx}`} icon={board[rowIdx][colIdx]} />
+            <Cell key={`${level}-${rowIdx}-${colIdx}`} icon={board[rowIdx][colIdx]} rowIdx={rowIdx} colIdx={colIdx} updateBoard={updateBoardState} />
         ))
     );
 
