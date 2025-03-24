@@ -1,11 +1,6 @@
 body{
   overflow: hidden;
-  background-color: rgb(88, 72, 72);
-}
-
-button{
-  border: 1px black solid;
-  justify-content: center;
+  background-color: rgb(59, 81, 131);
 }
 
 #Level-Selection-Section{
@@ -32,19 +27,35 @@ button{
   display: grid;
 }
 
+.checkButtonPosition{
+  position: absolute;
+  width: 10dvw;
+  height: 5dvh;
+  left: 60dvw;
+  top: 90dvh;
+}
+
 .red{
   background-color: red;
+  border: 1px black solid;
+  justify-content: center;
 }
 
 .grey{
   background-color: grey;
+  border: 1px black solid;
+  justify-content: center;
 }
 
 .black{
   background-color: black;
   color: white;
+  border: 1px black solid;
+  justify-content: center;
 }
 
 .yellow{
   background-color: yellow;
+  border: 1px black solid;
+  justify-content: center;
 }

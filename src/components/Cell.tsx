@@ -12,7 +12,7 @@ interface CellProps {
 const ICONMAP: Record<string, string> = {
     "bulb": "💡",
     "_": "",
-    "lit": "💡",
+    "lit": "",
     "zero": "0",
     "one": "1",
     "two": "2",
@@ -26,15 +26,15 @@ function getIcon(key: string){
 
 const Cell: React.FC<CellProps> = ({icon, rowIdx, colIdx, updateBoard}) => {
     const [hasbeenClicked, click] = useState(false);
-
-    let isClickable:boolean = icon === "_" || icon === "bulb";
+    const isClickable:boolean = icon === "_" || icon === "bulb" || icon === "lit";
+    const isLit: boolean = icon === "lit";
     return <>
     <button
     onClick={()=>{if (isClickable){
         click(!hasbeenClicked);
-        updateBoard(rowIdx,colIdx,hasbeenClicked ? "_" : "bulb");
+        updateBoard(rowIdx,colIdx,hasbeenClicked ? "lit" : "bulb");
     }}}
-    className={hasbeenClicked ? "yellow" : isClickable ? "grey" : "black"}
+    className={hasbeenClicked || isLit ? "yellow" : isClickable ? "grey" : "black"}
     >
         {getIcon(icon)}
     </button>
