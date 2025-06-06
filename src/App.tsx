@@ -1,24 +1,10 @@
 import React, {useState} from 'react';
+import { convertToValidNumber, blockType, wordToNumber, directions, isValidPosition } from './helper/helper';
 import './App.css';
 
 import Board from './components/Board';
 import Level from './components/Level';
 
-//Checks if the input is a digit
-function isDigit(input: string){
-  return /^[0-9]$/.test(input);
-};
-
-//Converts a string to a valid digit
-function convertToValidNumber(input: string){
-    if (isDigit(input)){
-        return Number(input);
-    }
-    return input.toLowerCase().charCodeAt(0) - 'a'.charCodeAt(0) + 10;
-}
-
-// b, 0, 1, 2, 3, 4 
-const blockType = ["black","zero","one","two","three","four"];
 function createBoard(stringInput: string, gridSize: number){
     let blockTypeList = stringInput.split("\n");
     const board = Array.from({ length: gridSize }, () => Array(gridSize).fill('_'));
@@ -35,6 +21,89 @@ function createBoard(stringInput: string, gridSize: number){
     }
     return board;
 };
+
+
+
+function isAllSquaresFilled(board: any[][]){
+    const gridSize = board.length;
+    for (let rowIdx = 0; rowIdx < gridSize; rowIdx++){
+        for (let colIdx = 0; colIdx < gridSize; colIdx++){
+            if (board[rowIdx][colIdx] === "_"){
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+function isValidLightPlacement(board: any[][]){
+    const gridSize = board.length;
+    let count;
+    for (let rowIdx = 0; rowIdx < gridSize; rowIdx++){
+        count = 0;
+        for (let colIdx = 0; colIdx < gridSize; colIdx++){
+            if (board[rowIdx][colIdx] === "bulb") count++;
+            if (blockType.includes(board[rowIdx][colIdx])) count--;
+            if (count >= 2) return false;
+        }
+    }
+    for (let colIdx = 0; colIdx < gridSize; colIdx++){
+        count = 0;
+        for (let rowIdx = 0; rowIdx < gridSize; rowIdx++){
+            if (board[rowIdx][colIdx] === "bulb") count++;
+            if (blockType.includes(board[rowIdx][colIdx])) count--;
+            if (count >= 2) return false;
+        }
+    }
+    return true;
+}
+
+function isBlackSquareSatisfied(board: any[][]){
+    const gridSize = board.length;
+    for (let rowIdx = 0; rowIdx < gridSize; rowIdx++){
+        for (let colIdx = 0; colIdx < gridSize; colIdx++){
+            if (blockType.includes(board[rowIdx][colIdx]) && board[rowIdx][colIdx] !== "black"){
+                const correctCount = wordToNumber[board[rowIdx][colIdx]];
+                if (countTheSides(rowIdx,colIdx,board) !== correctCount) return false;
+            }
+        }
+    }
+    return true;
+}
+
+
+function countTheSides(rowIdx:number, colIdx: number, board: any[][]){
+    const gridSize = board.length;
+    let count = 0;
+    for (const [dx,dy] of directions){
+        if (isValidPosition((rowIdx+dx),gridSize) && isValidPosition((colIdx+dy),gridSize)){
+            if (board[rowIdx+dx][colIdx+dy] === "bulb") count++;
+        }
+    }
+    return count;
+}
+
+function checkBoard(board: any[][]) {
+    if (!isAllSquaresFilled(board)) {
+        alert("Some Black Squares Exist");
+        return;
+    }
+    if (!isValidLightPlacement(board)) {
+        alert("Some Bulbs are in each other's path");
+        return;
+    }
+    if (!isBlackSquareSatisfied(board)) {
+        alert("Too Many Bulbs Near Some Squares");
+        return;
+    }
+    alert("You've Won!");
+}
+
+function handleRightClick(event: React.MouseEvent) {
+    event.preventDefault(); // Prevent the default context menu
+    console.log("Right click detected!");
+    // Do your custom logic here
+}
 
 function App() {
     const [selectedLevel, setSelectedLevel] = useState<string>("");
@@ -54,11 +123,11 @@ function App() {
                     <Level key={level} level={level} onSelectLevel={handleSelectedLevel} />
                 ))}
             </div>
-            <div id="Board-Section">
+            <div id="Board-Section" onContextMenu={handleRightClick}>
                 <Board board={boardState} level={selectedLevel} gridSize={gridSize} onNewBoardUpdate={updateBoardState}></Board>
             </div>
             <div>
-                <button className="checkButtonPosition">Check</button>
+                {selectedLevel !== "" ? <button className="checkButtonPosition" onClick={() => {checkBoard(boardState)}}>Check</button> : null}
             </div>
         </>
     );

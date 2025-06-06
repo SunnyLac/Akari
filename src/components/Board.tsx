@@ -1,5 +1,6 @@
 import React from "react";
 import Cell from "./Cell";
+import { blockType, isValidPosition } from "../helper/helper";
 import '../App.css';
 
 interface BoardProps {
@@ -10,12 +11,10 @@ interface BoardProps {
     
 };
 
-const blockType = ["black","zero","one","two","three","four"];
+// const blockType = ["black","zero","one","two","three","four"];
 
 // Helper function that checks if the position is valid
-function isValidPosition(position:number, boundry: number){
-    return position < boundry && position > -1;
-}
+
 
 // This function searches for a bulb and returns True if it can find one, False otherwise
 function inViewOfBulb(board: any[][], rowIdx: number, colIdx: number){

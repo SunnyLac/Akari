@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 
+import { ICONMAP } from '../helper/helper';
 import '../App.css';
 
 interface CellProps {
@@ -9,16 +10,7 @@ interface CellProps {
     updateBoard: (rowIdx: number, colIdx: number, new_icon: string) => void;
 };
 
-const ICONMAP: Record<string, string> = {
-    "bulb": "💡",
-    "_": "",
-    "lit": "",
-    "zero": "0",
-    "one": "1",
-    "two": "2",
-    "three": "3",
-    "four": "4"
-}
+
 
 function getIcon(key: string){
     return ICONMAP[key];

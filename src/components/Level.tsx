@@ -41,7 +41,7 @@ const Level: React.FC<LevelProps> = ({level, onSelectLevel}) => {
         gridSize = 0;
 }
     return <>
-    <button onClick={() => onSelectLevel(example, gridSize, boardString)}>
+    <button className="levelSelectButton" onClick={() => onSelectLevel(example, gridSize, boardString)}>
       {level}
     </button>
     </>;

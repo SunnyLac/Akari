@@ -9,7 +9,14 @@ body{
   justify-content: center;
   /* align-items: center; */
   display: flex;
-  gap: 5dvw;
+  gap: 10dvw;
+  top: 5dvh;
+  position: relative;
+}
+
+.levelSelectButton{
+  border-radius: 15%;
+  width: 5dvw;
 }
 
 #Board-Section{
@@ -59,3 +66,4 @@ body{
   border: 1px black solid;
   justify-content: center;
 }
+
